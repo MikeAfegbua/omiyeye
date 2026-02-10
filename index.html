@@ -21,7 +21,6 @@
       transition: background 0.5s ease;
     }
 
-    /* Floating hearts background */
     .heart {
       position: absolute;
       font-size: 20px;
@@ -46,6 +45,7 @@
       z-index: 10;
       animation: popIn 0.6s ease;
       max-width: 90%;
+      position: relative;
     }
 
     @keyframes popIn {
@@ -64,7 +64,7 @@
       gap: 25px;
       justify-content: center;
       align-items: center;
-      min-height: 100px;
+      min-height: 150px; /* Added height to accommodate growing button */
     }
 
     button {
@@ -74,20 +74,19 @@
       border-radius: 50px;
       border: none;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
       box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     }
 
     #yesBtn {
       background: linear-gradient(135deg, #52b788, #2d6a4f);
       color: #fff;
-      position: relative;
+      z-index: 101; /* Higher than No button */
     }
 
     #noBtn {
       background: linear-gradient(135deg, #ff595e, #c9184a);
       color: #fff;
-      /* Starts relative, script turns it absolute on hover */
       position: relative; 
       z-index: 100;
     }
@@ -121,11 +120,10 @@
   <div id="heart-container"></div>
 
   <div id="main-content">
-    <h1 id="questionText">Hey Mami</h1>
-    <h1 id="questionText">Will you be my Valentine? 💌</h1>
+    <h1 id="questionText">Hey Mami, Will you be my Valentine? 💌</h1>
     <div class="container">
       <button id="yesBtn" onclick="celebrate()">YES 💖</button>
-      <button id="noBtn" onmouseover="dodge()">NO 🙃</button>
+      <button id="noBtn" onclick="growYes()">NO 🙃</button>
     </div>
   </div>
 
@@ -139,7 +137,6 @@
     let scale = 1;
     let attempts = 0;
 
-    // Helper to create hearts
     function createHearts() {
         const container = document.getElementById('heart-container');
         for (let i = 0; i < 15; i++) {
@@ -153,32 +150,24 @@
     }
     createHearts();
 
-    function dodge() {
-      const noBtn = document.getElementById("noBtn");
+    // This function makes the Yes button grow
+    function growYes() {
       const yesBtn = document.getElementById("yesBtn");
       const question = document.getElementById("questionText");
-
-      // Switch to absolute positioning on first hover
-      noBtn.style.position = "absolute";
-
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40);
-
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-
-      scale += 0.4;
+      
+      attempts++;
+      scale += 0.4; // Increase growth per click
+      
       yesBtn.style.transform = `scale(${scale})`;
 
-      // Change text as she gets more desperate
-      attempts++;
-      if(attempts > 5) question.innerText = "Resistance is futile... 😈";
-      if(attempts > 10) question.innerText = "Just click the green one! 😤";
-
-      document.body.style.background =
-        scale % 1 < 0.5
-          ? "radial-gradient(circle at top, #ffd6e0, #ff8fab)"
-          : "radial-gradient(circle at top, #ffe5ec, #ffb3c6)";
+      // Update text messages
+      if(attempts === 2) question.innerText = "It seems you made a mistake o 😒";
+      if(attempts === 4) question.innerText = "Please na 😢";
+      if(attempts >= 6) question.innerText = "Stubborn MF 😤";
+      
+      // Optional: Add a slight shake to the No button to show it's being "crushed"
+      const noBtn = document.getElementById("noBtn");
+      noBtn.style.transform = `translateX(${Math.random() * 4 - 2}px)`;
     }
 
     function celebrate() {
@@ -186,7 +175,6 @@
       document.getElementById("celebration").style.display = "block";
       document.body.style.background = "linear-gradient(135deg, #ff4d6d, #ff8fab)";
       
-      // Infinite heart burst logic
       setInterval(() => {
           const heart = document.createElement('div');
           heart.innerHTML = "❤️";
@@ -195,6 +183,7 @@
           heart.style.top = "100vh";
           heart.style.fontSize = Math.random() * 30 + 20 + "px";
           heart.style.transition = "4s";
+          heart.style.zIndex = "1000";
           document.body.appendChild(heart);
           setTimeout(() => {
               heart.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
@@ -204,7 +193,4 @@
   </script>
 
 </body>
-
 </html>
-
-
