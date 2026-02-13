@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Valentine Question 💌</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -31,9 +34,19 @@
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
-      50% { opacity: 0.8; }
-      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+      0% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
     }
 
     #main-content {
@@ -41,7 +54,7 @@
       backdrop-filter: blur(10px);
       padding: 50px 40px;
       border-radius: 24px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
       text-align: center;
       z-index: 10;
       animation: popIn 0.6s ease;
@@ -49,8 +62,15 @@
     }
 
     @keyframes popIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     h1 {
@@ -75,7 +95,7 @@
       border: none;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
     }
 
     #yesBtn {
@@ -88,7 +108,7 @@
       background: linear-gradient(135deg, #ff595e, #c9184a);
       color: #fff;
       /* Starts relative, script turns it absolute on hover */
-      position: relative; 
+      position: relative;
       z-index: 100;
     }
 
@@ -100,8 +120,15 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .emoji-burst {
@@ -111,17 +138,25 @@
     }
 
     @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div id="heart-container"></div>
 
   <div id="main-content">
-    <h1 id="questionText">Hey Mami</h1>
+    <h1 id="questionText">Hey Edith</h1>
     <h1 id="questionText">Will you be my Valentine? 💌</h1>
     <div class="container">
       <button id="yesBtn" onclick="celebrate()">YES 💖</button>
@@ -130,7 +165,7 @@
   </div>
 
   <div id="celebration">
-    <h1 style="color: white; font-size: 3rem;">Bitch, I knew You'd Say YES!</h1>
+    <h1 style="color: white; font-size: 3rem;">Omiyeye!, I knew You'd Say YES!</h1>
     <p style="color: white; font-size: 1.5rem;">You can't breathe without me 💕</p>
     <div class="emoji-burst">💖🌹✨</div>
   </div>
@@ -141,15 +176,15 @@
 
     // Helper to create hearts
     function createHearts() {
-        const container = document.getElementById('heart-container');
-        for (let i = 0; i < 15; i++) {
-            const heart = document.createElement('span');
-            heart.className = 'heart';
-            heart.innerText = ['💖','❤️','💘','🌹','✨'][Math.floor(Math.random()*5)];
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            container.appendChild(heart);
-        }
+      const container = document.getElementById('heart-container');
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'heart';
+        heart.innerText = ['💖', '❤️', '💘', '🌹', '✨'][Math.floor(Math.random() * 5)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(heart);
+      }
     }
     createHearts();
 
@@ -172,8 +207,8 @@
 
       // Change text as she gets more desperate
       attempts++;
-      if(attempts > 5) question.innerText = "Resistance is futile... 😈";
-      if(attempts > 10) question.innerText = "Just click the green one! 😤";
+      if (attempts > 5) question.innerText = "Resistance is futile... 😈";
+      if (attempts > 10) question.innerText = "Just click the green one! 😤";
 
       document.body.style.background =
         scale % 1 < 0.5
@@ -185,20 +220,20 @@
       document.getElementById("main-content").style.display = "none";
       document.getElementById("celebration").style.display = "block";
       document.body.style.background = "linear-gradient(135deg, #ff4d6d, #ff8fab)";
-      
+
       // Infinite heart burst logic
       setInterval(() => {
-          const heart = document.createElement('div');
-          heart.innerHTML = "❤️";
-          heart.style.position = "fixed";
-          heart.style.left = Math.random() * 100 + "vw";
-          heart.style.top = "100vh";
-          heart.style.fontSize = Math.random() * 30 + 20 + "px";
-          heart.style.transition = "4s";
-          document.body.appendChild(heart);
-          setTimeout(() => {
-              heart.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
-          }, 100);
+        const heart = document.createElement('div');
+        heart.innerHTML = "❤️";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        heart.style.fontSize = Math.random() * 30 + 20 + "px";
+        heart.style.transition = "4s";
+        document.body.appendChild(heart);
+        setTimeout(() => {
+          heart.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
+        }, 100);
       }, 100);
     }
   </script>
@@ -206,4 +241,3 @@
 </body>
 
 </html>
-
